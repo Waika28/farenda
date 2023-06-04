@@ -30,11 +30,10 @@ Firebase.
 
 ## Задача
 
-Необходимые поля
+Задачи будут храниться в Firestore и иметь такую схему:
 
-- id
-- text: string not null
-- has_next: bool not null
-- next_id
-- has_prev: bool not null
-- prev_id
+```
+- text (string)
+- steps (array, map)
+    - text
+```
