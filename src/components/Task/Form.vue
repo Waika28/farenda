@@ -2,6 +2,7 @@
 import { Timestamp } from '@firebase/firestore'
 import { ref } from 'vue'
 
+const { user } = defineProps(['user'])
 const emit = defineEmits(['addTask'])
 
 const text = ref("")
@@ -9,7 +10,7 @@ const text = ref("")
 function addTask() {
   emit('addTask', {
     text: text.value,
-    userId: "jUgOpTH1RicovZg1khbjd4pTqHW2",
+    userId: user.uid,
     addedAt: Timestamp.now(),
     completedAt: null,
     steps: [],

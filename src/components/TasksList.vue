@@ -1,12 +1,14 @@
 <script setup>
-import { useFirestore, useCollection } from 'vuefire'
+import { useFirestore, useCollection, getCurrentUser } from 'vuefire'
 import { addDoc, collection, doc, deleteDoc, where, query, updateDoc } from 'firebase/firestore'
 import TaskForm from './Task/Form.vue'
 import Task from './Task/Task.vue'
 
+const { user } = defineProps(['user'])
+
 const db = useFirestore()
 const tasksRef = collection(db, 'tasks')
-const tasks = useCollection(query(tasksRef, where('userId', '==', 'jUgOpTH1RicovZg1khbjd4pTqHW2')))
+const tasks = useCollection(query(tasksRef, where('userId', '==', user.uid)))
 
 function addTask(task) {
   addDoc(tasksRef, task)
@@ -27,5 +29,5 @@ function deleteTask(task) {
       <Task :task="task" @updateTask="updateTask" @deleteTask="deleteTask" />
     </li>
   </ul>
-  <TaskForm @addTask="addTask" />
+  <TaskForm :user=user @addTask="addTask" />
 </template>
