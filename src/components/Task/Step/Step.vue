@@ -16,10 +16,15 @@ function toggleCompleted() {
 </script>
 
 <template>
-  <div :class="{ completed: step.isCompleted }" @click="toggleCompleted">{{ step.text }}</div>
-  <div>Added at {{ new Date(step.addedAt.seconds * 1000) }}}</div>
-  <div v-if="step.isCompleted">Completed at {{ new Date(step.completedAt.seconds * 1000) }}</div>
-  <button @click="emit('deleteStep', props.index)">Delete</button>
+  <div class="flex gap-x-2 items-center">
+    <input :checked="step.isCompleted" class=checkbox type="checkbox" @click="toggleCompleted">
+    <span :class="{ completed: step.isCompleted }">{{ step.text }}</span>
+    <button class="btn btn-circle btn-sm" @click="emit('deleteStep', props.index)">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
 </template>
 
 <style>

@@ -22,10 +22,19 @@ function addTask() {
 </script>
 
 <template>
-  <form @submit.prevent="addTask">
-    <label for="text">Task text: </label>
-    <input name="text" type="text" v-model="text" />
-
-    <button>Create task</button>
-  </form>
+  <div class="card bg-base-200 shadow-xl">
+    <div class="card-body">
+      <div class="card-title">Add task</div>
+      <form @submit.prevent="addTask">
+        <div class="join">
+          <div class="join-item">
+            <input name="text" class="input input-bordered" type="text" v-model="text" />
+          </div>
+          <div class="join-item">
+            <button class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </template>

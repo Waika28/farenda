@@ -2,7 +2,7 @@
 import { ref, toRef } from 'vue'
 import Form from './Step/Form.vue'
 import Step from './Step/Step.vue'
-import { replaceItemByIndex } from '../../utils'
+import { replaceItemByIndex, formatTimestamp } from '../../utils'
 import { Timestamp } from '@firebase/firestore'
 
 const props = defineProps(['task'])
@@ -25,7 +25,8 @@ function addStep(newStep) {
 
 function updateStep(stepIndex, step, updatedData) {
   const newSteps = replaceItemByIndex(task.value.steps, stepIndex, { ...step, ...updatedData })
-  emit('updateTask', task.value, { steps: newSteps })
+  const isAllCompleted = newSteps.every(x => x.isCompleted)
+  emit('updateTask', task.value, { steps: newSteps, isCompleted: isAllCompleted || task.value.isCompleted})
 }
 
 function deleteStep(stepIndex) {
@@ -35,21 +36,37 @@ function deleteStep(stepIndex) {
 </script>
 
 <template>
-  <div :class="{ completed: task.isCompleted }" @click="toggleCompleted">{{ task.text }}</div>
-  <div>Added at {{ new Date(task.addedAt.seconds * 1000) }}}</div>
-  <div v-if="task.isCompleted">Completed at {{ new Date(task.completedAt.seconds * 1000) }}</div>
-  <div>
-    <button v-if="!isAddingStep" @click="isAddingStep = true">Add step</button>
-    <button @click="emit('deleteTask', task)">Delete</button>
-  </div>
-  <ol v-if="task.steps">
-    <li v-for="[i, step] of task.steps.entries()">
-      <Step :index="i" :step="step" @updateStep="updateStep" @deleteStep="deleteStep" />
-    </li>
-  </ol>
-  <div v-if="isAddingStep">
-    <Form :nextId="task.steps.length" @addStep="addStep" @deleteStep="deleteStep" />
-    <button @click="isAddingStep = false">Close</button>
+  <div class="p-4">
+    <div class="flex gap-x-2 items-center">
+      <input :checked="task.isCompleted" type="checkbox" class="checkbox" @click="toggleCompleted" />
+      <span :class="{ completed: task.isCompleted }">{{ task.text }}</span>
+      <button class="btn btn-circle btn-sm" @click="emit('deleteTask', task)">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="pl-4 border-l-2">
+      <ol v-if="task.steps" class="flex flex-col gap-y-2 my-2">
+        <li v-for="[i, step] of task.steps.entries()">
+          <Step :index="i" :step="step" @updateStep="updateStep" @deleteStep="deleteStep" />
+        </li>
+      </ol>
+      <button v-if="!isAddingStep" class="btn btn-secondary btn-sm" @click="isAddingStep = true">Add</button>
+      <div v-if="isAddingStep">
+        <div class="join">
+          <Form :nextId="task.steps.length" @addStep="addStep" @deleteStep="deleteStep" />
+          <div class="join-item">
+            <button class="btn btn-sm" @click="isAddingStep = false">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

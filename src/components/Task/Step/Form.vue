@@ -21,9 +21,13 @@ function addStep() {
 
 <template>
   <form @submit.prevent="addStep">
-    <label for="text">Step: </label>
-    <input name="text" type="text" v-model="text" />
-
-    <button>Add step</button>
+    <div class="join">
+      <div class="join-item flex-1">
+        <input class="w-full input input-bordered input-sm" name="text" type="text" v-model="text" />
+      </div>
+      <div class="join-item">
+        <button class="btn btn-secondary btn-sm">Submit</button>
+      </div>
+    </div>
   </form>
 </template>
