@@ -33,7 +33,14 @@ Firebase.
 Задачи будут храниться в Firestore и иметь такую схему:
 
 ```
+- userId (string)
 - text (string)
+- isCompleted (bool)
+- completedAt (timestamp)
+- addedAt
 - steps (array, map)
-    - text
+    - text (string)
+    - isCompleted (bool)
+    - completedAt (timestamp)
+    - addedAt (timestamp)
 ```

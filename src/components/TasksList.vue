@@ -1,35 +1,31 @@
 <script setup>
-import { useFirestore } from 'vuefire'
-import { useCollection } from 'vuefire'
-import { addDoc, collection, doc, deleteDoc } from 'firebase/firestore'
-import TaskForm from './TaskForm.vue'
+import { useFirestore, useCollection } from 'vuefire'
+import { addDoc, collection, doc, deleteDoc, where, query, updateDoc } from 'firebase/firestore'
+import TaskForm from './Task/Form.vue'
+import Task from './Task/Task.vue'
 
 const db = useFirestore()
+const tasksRef = collection(db, 'tasks')
+const tasks = useCollection(query(tasksRef, where('userId', '==', 'jUgOpTH1RicovZg1khbjd4pTqHW2')))
 
-const tasks = useCollection(collection(db, 'tasks'))
-
-async function newTask(task) {
-  await addDoc(collection(db, 'tasks'), task)
+function addTask(task) {
+  addDoc(tasksRef, task)
 }
 
-async function deleteTask(task_id) {
-  await deleteDoc(doc(db, 'tasks', task_id))
+function updateTask(task, updatedData) {
+  updateDoc(doc(tasksRef, task.id), updatedData)
+}
+
+function deleteTask(task) {
+  deleteDoc(doc(tasksRef, task.id))
 }
 </script>
 
 <template>
-  <ul>
-    <li v-for="task in tasks" :key="task.id">
-      <span>{{ task.text }}</span>
-      <button @click="deleteTask(task.id)">X</button>
-      <div v-if="task.steps">
-        <ol>
-          <li v-for="step in task.steps">
-            {{ step.text }}
-          </li>
-        </ol>
-      </div>
+  <ul v-if="tasks" v-for="task of tasks">
+    <li>
+      <Task :task="task" @updateTask="updateTask" @deleteTask="deleteTask" />
     </li>
   </ul>
-  <TaskForm @newTask="newTask"/>
+  <TaskForm @addTask="addTask" />
 </template>
