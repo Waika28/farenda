@@ -20,8 +20,7 @@ export default defineConfig({
         display: "standalone",
         background_color: "#D9D9D9",
         orientation: "portrait",
-        icons [
-
+        icons: [
           {
             src: "icons/icon-72x72.png",
             sizes: "72x72",
