@@ -6,6 +6,7 @@ const props = defineProps(['nextId'])
 const emit = defineEmits(['addStep'])
 
 const text = ref("")
+const input = ref(null)
 
 function addStep() {
   emit('addStep', {
@@ -16,6 +17,7 @@ function addStep() {
   })
 
   text.value = ""
+  input.value.focus()
 }
 </script>
 
@@ -23,7 +25,7 @@ function addStep() {
   <form @submit.prevent="addStep">
     <div class="join">
       <div class="join-item flex-1">
-        <input class="w-full input input-bordered input-sm" name="text" type="text" v-focus v-model="text" />
+        <input class="w-full input input-bordered input-sm" name="text" type="text" v-focus v-model="text" ref="input"/>
       </div>
       <div class="join-item">
         <button class="btn btn-secondary btn-sm">Submit</button>
