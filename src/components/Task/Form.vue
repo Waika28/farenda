@@ -35,7 +35,7 @@ function addTask() {
         </div>
         <div class="join">
           <div class="join-item">
-            <input name="text" class="input input-bordered" type="text" v-model="text" />
+            <input name="text" class="input input-bordered" type="text" v-focus v-model="text" />
           </div>
           <div class="join-item">
             <button class="btn btn-primary">Submit</button>

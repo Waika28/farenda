@@ -13,4 +13,7 @@ app
       VueFireAuth(),
     ],
   })
+  .directive('focus', {
+    mounted: (el) => el.focus()
+  })
   .mount('#app')
