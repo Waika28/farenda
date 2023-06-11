@@ -19,7 +19,10 @@ const user = useCurrentUser()
     </div>
   </div>
   <main>
-    <div v-if="!user">
+    <div class="grid h-screen place-items-center" v-if="user === undefined">
+      <span class="loading loading-spinner w-1/3 md:w-1/6 lg:w-1/12"></span>
+    </div>
+    <div v-else-if="user === null">
       <Auth />
     </div>
     <div v-else>
