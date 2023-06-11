@@ -32,14 +32,14 @@ const closeModal = () => add_task_modal.close()
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21L12 3M3 12l18 0" />
     </svg>
   </button>
-  <dialog id="add_task_modal" class="modal">
-    <form class="modal-box w-auto" @submit.prevent="addTask">
+  <dialog id="add_task_modal" class="modal modal-bottom md:modal-middle">
+    <form class="modal-box" @submit.prevent="addTask">
       <div class="text-xl font-semibold">
         <label for="text">Add task</label>
       </div>
-      <div class="join">
-        <div class="join-item">
-          <input name="text" class="input input-bordered" type="text" v-focus v-model="text" />
+      <div class="join w-full">
+        <div class="join-item w-full">
+          <input name="text" class="input input-bordered w-full" type="text" v-focus v-model="text" />
         </div>
         <div class="join-item">
           <button class="btn btn-primary">Submit</button>
