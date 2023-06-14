@@ -7,7 +7,7 @@ import Task from './Task/Task.vue'
 import { storeToRefs } from 'pinia'
 
 const store = useFirebaseStore()
-store.useTasks()
+store.loadTasks()
 const { tasksRef } = store
 const { user, tasks } = storeToRefs(store)
 

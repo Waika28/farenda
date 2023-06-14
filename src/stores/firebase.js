@@ -8,12 +8,12 @@ export const useFirebaseStore = defineStore('firebase', {
   state: () => {
     const db = useFirestore()
     const user = useCurrentUser()
+    const tasksRef = collection(db, 'tasks')
 
-    return { db, user, tasksRef: null, tasks: null }
+    return { db, user, tasksRef, tasks: null }
   },
   actions: {
-    useTasks() {
-      this.tasksRef = collection(this.db, 'tasks')
+    loadTasks() {
       this.tasks = useCollection(query(this.tasksRef, where('userId', '==', this.user.uid)))
     },
   }
