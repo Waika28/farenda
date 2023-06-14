@@ -55,7 +55,7 @@ function deleteStep(stepIndex) {
     </div>
     <div class="pl-4 border-l-2">
       <ol v-if="task.steps" class="flex flex-col gap-y-2 my-2">
-        <li v-for="[i, step] of task.steps.entries()">
+        <li v-for="[i, step] of task.steps.entries()" :key="i">
           <Step :index="i" :step="step" @updateStep="updateStep" @deleteStep="deleteStep" />
         </li>
       </ol>

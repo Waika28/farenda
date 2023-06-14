@@ -25,7 +25,7 @@ function deleteTask(task) {
 
 <template>
   <ul v-if="tasks">
-    <li v-for="task of tasks">
+    <li v-for="task of tasks" :key="task.id">
       <Task :task="task" @updateTask="updateTask" @deleteTask="deleteTask" />
     </li>
   </ul>
