@@ -24,8 +24,8 @@ function deleteTask(task) {
 </script>
 
 <template>
-  <ul v-if="tasks" v-for="task of tasks">
-    <li>
+  <ul v-if="tasks">
+    <li v-for="task of tasks">
       <Task :task="task" @updateTask="updateTask" @deleteTask="deleteTask" />
     </li>
   </ul>
