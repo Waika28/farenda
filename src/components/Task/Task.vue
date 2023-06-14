@@ -2,6 +2,7 @@
 import { ref, toRef } from 'vue'
 import Form from './Step/Form.vue'
 import Step from './Step/Step.vue'
+import ClickToEditInput from './ClickToEditInput.vue'
 import { replaceItemByIndex, formatTimestamp } from '../../utils'
 import { Timestamp } from '@firebase/firestore'
 
@@ -17,6 +18,12 @@ function toggleCompleted() {
   })
 }
 
+function updateText(newText) {
+  emit('updateTask', task.value, {
+    text: newText
+  })
+}
+
 const isAddingStep = ref(false)
 
 function addStep(newStep) {
@@ -26,7 +33,7 @@ function addStep(newStep) {
 function updateStep(stepIndex, step, updatedData) {
   const newSteps = replaceItemByIndex(task.value.steps, stepIndex, { ...step, ...updatedData })
   const isAllCompleted = newSteps.every(x => x.isCompleted)
-  emit('updateTask', task.value, { steps: newSteps, isCompleted: isAllCompleted || task.value.isCompleted})
+  emit('updateTask', task.value, { steps: newSteps, isCompleted: isAllCompleted || task.value.isCompleted })
 }
 
 function deleteStep(stepIndex) {
@@ -39,7 +46,7 @@ function deleteStep(stepIndex) {
   <div class="p-4">
     <div class="flex gap-x-2 items-center">
       <input :checked="task.isCompleted" type="checkbox" class="checkbox" @click="toggleCompleted" />
-      <span :class="{ completed: task.isCompleted }">{{ task.text }}</span>
+      <ClickToEditInput :class="{ completed: task.isCompleted }" :value="task.text" @submit="updateText" />
       <button class="btn btn-circle btn-sm" @click="emit('deleteTask', task)">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
