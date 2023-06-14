@@ -20,7 +20,7 @@ function toggleShow() {
 <template>
   <span :class="props.class">
     <span v-if="!editing" @click="toggleShow">{{ value }}</span>
-    <input v-if="editing" class="input input-bordered w-100" v-model="value" v-focus @blur="submit"
+    <input v-if="editing" class="input input-bordered w-full" v-model="value" v-focus @blur="submit"
       @keyup.enter="submit" />
   </span>
 </template>
