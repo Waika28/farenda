@@ -1,14 +1,15 @@
 <script setup>
-import { useFirestore, useCollection, getCurrentUser } from 'vuefire'
-import { addDoc, collection, doc, deleteDoc, where, query, updateDoc } from 'firebase/firestore'
+import { toRef } from 'vue'
+import { useFirebaseStore } from '../stores/firebase.js'
+import { addDoc, doc, deleteDoc, updateDoc } from 'firebase/firestore'
 import TaskForm from './Task/Form.vue'
 import Task from './Task/Task.vue'
+import { storeToRefs } from 'pinia'
 
-const { user } = defineProps(['user'])
-
-const db = useFirestore()
-const tasksRef = collection(db, 'tasks')
-const tasks = useCollection(query(tasksRef, where('userId', '==', user.uid)))
+const store = useFirebaseStore()
+store.useTasks()
+const { tasksRef } = store
+const { user, tasks } = storeToRefs(store)
 
 function addTask(task) {
   addDoc(tasksRef, task)

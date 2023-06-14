@@ -2,6 +2,7 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import { VueFire, VueFireAuth } from 'vuefire'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import { firebaseApp } from './firebase'
 
@@ -13,6 +14,7 @@ app
       VueFireAuth(),
     ],
   })
+  .use(createPinia())
   .directive('focus', {
     mounted: (el) => el.focus()
   })
