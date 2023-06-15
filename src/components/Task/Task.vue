@@ -41,6 +41,10 @@ function deleteStep(stepIndex) {
   const newSteps = task.value.steps.filter((_, i) => i != stepIndex)
   emit('updateTask', task.value, { steps: newSteps })
 }
+
+function toggleAddingStepForm() {
+  isAddingStep.value = !isAddingStep.value
+}
 </script>
 
 <template>
@@ -58,16 +62,9 @@ function deleteStep(stepIndex) {
           <Step :index="i" :step="step" @updateStep="updateStep" @deleteStep="deleteStep" />
         </li>
       </ol>
-      <button v-if="!isAddingStep" class="btn btn-secondary btn-sm" @click="isAddingStep = true">Add</button>
+      <button v-if="!isAddingStep" class="btn btn-secondary btn-sm" @click="toggleAddingStepForm">Add</button>
       <div v-if="isAddingStep">
-        <div class="join">
-          <Form :nextId="task.steps.length" @addStep="addStep" @deleteStep="deleteStep" />
-          <div class="join-item">
-            <button class="btn btn-sm" @click="isAddingStep = false">
-              <Cross />
-            </button>
-          </div>
-        </div>
+        <Form :nextId="task.steps.length" @addStep="addStep" @deleteStep="deleteStep" @close="toggleAddingStepForm" />
       </div>
     </div>
   </div>
