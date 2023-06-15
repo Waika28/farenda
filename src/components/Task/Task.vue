@@ -5,6 +5,7 @@ import Step from './Step/Step.vue'
 import ClickToEditInput from './ClickToEditInput.vue'
 import { replaceItemByIndex, formatTimestamp } from '../../utils'
 import { Timestamp } from '@firebase/firestore'
+import Cross from '../icons/Cross.vue'
 
 const props = defineProps(['task'])
 const emit = defineEmits(['updateTask', 'deleteTask'])
@@ -48,9 +49,7 @@ function deleteStep(stepIndex) {
       <input :checked="task.isCompleted" type="checkbox" class="checkbox" @click="toggleCompleted" />
       <ClickToEditInput :class="{ completed: task.isCompleted }" :value="task.text" @submit="updateText" />
       <button class="btn btn-circle btn-sm" @click="emit('deleteTask', task)">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+        <Cross />
       </button>
     </div>
     <div class="pl-4 border-l-2">
@@ -65,10 +64,7 @@ function deleteStep(stepIndex) {
           <Form :nextId="task.steps.length" @addStep="addStep" @deleteStep="deleteStep" />
           <div class="join-item">
             <button class="btn btn-sm" @click="isAddingStep = false">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              <Cross />
             </button>
           </div>
         </div>
