@@ -1,11 +1,10 @@
 <script setup>
+import { useCurrentUser, useFirebaseAuth } from 'vuefire'
 import Auth from './components/Auth.vue'
 import TasksList from './components/TasksList.vue'
-import { useFirebaseStore } from './stores/firebase'
-import { storeToRefs } from 'pinia'
 
-const store = useFirebaseStore()
-const { user } = storeToRefs(store)
+const auth = useFirebaseAuth()
+const user = useCurrentUser()
 </script>
 
 <template>
@@ -27,7 +26,7 @@ const { user } = storeToRefs(store)
       <Auth />
     </div>
     <div v-else>
-      <TasksList />
+      <TasksList :user="user" />
     </div>
   </main>
 </template>
