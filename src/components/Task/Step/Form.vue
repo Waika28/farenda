@@ -23,13 +23,9 @@ function addStep() {
 
 <template>
   <form @submit.prevent="addStep">
-    <div class="join">
-      <div class="join-item flex-1">
-        <input class="w-full input input-bordered input-sm" name="text" type="text" v-focus @blur="emit('close')" v-model="text" ref="input"/>
-      </div>
-      <div class="join-item">
-        <button class="btn btn-secondary btn-sm">Submit</button>
-      </div>
+    <div class="flex-1">
+      <input class="w-full input input-bordered input-sm" name="text" type="text" v-focus @blur="emit('close')"
+        v-model="text" ref="input" required />
     </div>
   </form>
 </template>

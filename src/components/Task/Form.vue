@@ -38,7 +38,7 @@ const closeModal = () => add_task_modal.close()
       </div>
       <div class="join w-full">
         <div class="join-item w-full">
-          <input name="text" class="input input-bordered w-full" type="text" v-focus v-model="text" />
+          <input name="text" class="input input-bordered w-full" type="text" v-focus v-model="text" required />
         </div>
         <div class="join-item">
           <button class="btn btn-primary">Submit</button>

@@ -5,11 +5,15 @@ const props = defineProps(['class', 'value'])
 const emit = defineEmits(['submit'])
 
 const value = ref(props.value)
+const initValue = value.value
 const editing = ref(false)
 
 function submit() {
-  emit('submit', value.value)
   toggleShow()
+  if (value.value.trim() === "")
+    value.value = initValue
+  else
+    emit('submit', value.value)
 }
 
 function toggleShow() {
