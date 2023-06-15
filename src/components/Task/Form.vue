@@ -28,7 +28,7 @@ const closeModal = () => add_task_modal.close()
 </script>
 
 <template>
-  <button class="btn btn-circle absolute bottom-4 right-4 w-14 h-14" @click="showModal">
+  <button class="btn btn-circle fixed bottom-4 right-4 w-14 h-14" @click="showModal">
     <Plus />
   </button>
   <dialog id="add_task_modal" class="modal modal-bottom md:modal-middle">
