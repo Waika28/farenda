@@ -1,6 +1,6 @@
 <script setup>
 import { useFirestore, useCollection, getCurrentUser } from 'vuefire'
-import { addDoc, collection, doc, deleteDoc, where, query, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, doc, deleteDoc, where, query, updateDoc, disableNetwork } from 'firebase/firestore'
 import TaskForm from './Task/Form.vue'
 import Task from './Task/Task.vue'
 
