@@ -1,6 +1,6 @@
 <script setup>
 import { useFirestore, useCollection, getCurrentUser } from 'vuefire'
-import { addDoc, collection, doc, deleteDoc, where, query, updateDoc, disableNetwork } from 'firebase/firestore'
+import { addDoc, collection, doc, deleteDoc, where, query, updateDoc, disableNetwork, orderBy } from 'firebase/firestore'
 import TaskForm from './Task/Form.vue'
 import Task from './Task/Task.vue'
 
@@ -8,7 +8,7 @@ const { user } = defineProps(['user'])
 
 const db = useFirestore()
 const tasksRef = collection(db, 'tasks')
-const tasks = useCollection(query(tasksRef, where('userId', '==', user.uid)))
+const tasks = useCollection(query(tasksRef, where('userId', '==', user.uid), orderBy('addedAt', 'desc')))
 
 function addTask(task) {
   addDoc(tasksRef, task)
