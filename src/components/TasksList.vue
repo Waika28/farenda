@@ -72,7 +72,8 @@ function onDragLeave(taskId, position) {
 }
 
 function onDrop(event, position, dropIndex) {
-  const taskIndex = event.dataTransfer.getData('text/plain')
+  const taskIndex = +event.dataTransfer.getData('text/plain')
+  if (taskIndex == dropIndex) return
   const newIndex = taskIndex < dropIndex
     ? (position === 'top' ? dropIndex - 1 : dropIndex)
     : (position === 'top' ? dropIndex : dropIndex + 1)
