@@ -1,5 +1,6 @@
 import './assets/main.css'
 
+import 'drag-drop-touch'
 import { createApp } from 'vue'
 import { VueFire, VueFireAuth } from 'vuefire'
 import App from './App.vue'
