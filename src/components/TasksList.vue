@@ -94,9 +94,9 @@ function onDrop(event, position, dropIndex) {
         <div v-show="task.id + '-bottom' == visibleIndicator" class="absolute bottom-0 h-1 mb-[-2px] w-full bg-cyan-400">
         </div>
         <!-- Drop zones -->
-        <div @dragover.prevent @dragenter="onDragEnter(task.id, 'top')" @dragleave="onDragLeave(task.id, 'top')"
+        <div @dragover.prevent @dragenter.prevent="onDragEnter(task.id, 'top')" @dragleave="onDragLeave(task.id, 'top')"
           @drop="e => onDrop(e, 'top', order)" class="absolute top-0 w-full h-1/2"></div>
-        <div @dragover.prevent @dragenter="onDragEnter(task.id, 'bottom')" @dragleave="onDragLeave(task.id, 'bottom')"
+        <div @dragover.prevent @dragenter.prevent="onDragEnter(task.id, 'bottom')" @dragleave="onDragLeave(task.id, 'bottom')"
           @drop="e => onDrop(e, 'bottom', order)" class="absolute bottom-0 w-full h-1/2"></div>
       </div>
       <Task :task="task" @updateTask="updateTask" @deleteTask="deleteTask" />
